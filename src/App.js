@@ -34,7 +34,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("render main");
     const { monsters, searchField } = this.state;
     const { onSearchChange } = this;
     // eslint-disable-next-line
