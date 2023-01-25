@@ -1,14 +1,14 @@
 import { Component } from "react";
 
-import logo from "./logo.svg";
+import CardList from "./components/card-list/card-list.component";
 import "./App.css";
+import SearchBox from "./components/search-box/search-box.component";
+// eslint-disable-next-line
 import { render } from "@testing-library/react";
 
 class App extends Component {
   constructor() {
     super();
-
-    console.log("constructor");
 
     this.state = {
       monsters: [],
@@ -17,18 +17,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) =>
-        this.setState(
-          () => {
-            return { monsters: users };
-          },
-          () => {
-            console.log(this.state);
-          }
-        )
+        this.setState(() => {
+          return { monsters: users };
+        })
       );
   }
 
@@ -40,25 +34,29 @@ class App extends Component {
   };
 
   render() {
-    console.log("render");
-
+    console.log("render main");
     const { monsters, searchField } = this.state;
     const { onSearchChange } = this;
-
+    // eslint-disable-next-line
     const filteredMonsters = monsters.filter((search) => {
       return search.name.toLowerCase().includes(searchField);
     });
 
     return (
       <div className="App">
-        <input className="search-box" type="search" placeholder="search monsters" onChange={onSearchChange} />
-        {filteredMonsters.map((monster) => {
+        <SearchBox
+          onChangeHandler={onSearchChange}
+          placeholder="search monsters"
+          className="monsters-search-box"
+        />
+        {/* {filteredMonsters.map((monster) => {
           return (
             <div key={monster.name}>
               <h1>{monster.name}</h1>
             </div>
           );
-        })}
+        })} */}
+        <CardList monsters={filteredMonsters} />
       </div>
     );
   }
