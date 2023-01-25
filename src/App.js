@@ -49,13 +49,6 @@ class App extends Component {
           placeholder="search monsters"
           className="monsters-search-box"
         />
-        {/* {filteredMonsters.map((monster) => {
-          return (
-            <div key={monster.name}>
-              <h1>{monster.name}</h1>
-            </div>
-          );
-        })} */}
         <CardList monsters={filteredMonsters} />
       </div>
     );
